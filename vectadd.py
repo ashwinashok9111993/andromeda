@@ -10,19 +10,21 @@ from tictoc import *
 
 mod = SourceModule("""
 __global__ void add_them(float *dest, float *a, float *b)
-{
-  const int i = threadIdx.x+(blockIdx.x*(blockDim.x));
-  while(i < N)
-  dest[i] = a[i] + b[i];
-  tid += blockDim.x * gridDim.x;
+#define N (25600*2560)
 
+{
+  int i = threadIdx.x+(blockIdx.x*(blockDim.x));
+  while(i < N){
+  dest[i] = (a[i]) + (b[i]);
+  i += blockDim.x * gridDim.x;
+  }
 }
 """)
 
 multiply_them = mod.get_function("add_them")
 
-a = np.random.randn(65536).astype(np.float32)
-b = np.random.randn(65536).astype(np.float32)
+a = np.random.rand(65536000).astype(np.float32)
+b = np.random.rand(65536000).astype(np.float32)
 
 dest = np.zeros_like(a)
 
@@ -31,11 +33,15 @@ tic()
 multiply_them(
         drv.Out(dest), drv.In(a), drv.In(b),
         block=(1024,1,1),grid=(64,1,1))
-toc()
+
+gpu_time = toc()
 
 print 'cpu'
 tic()
-a+b
-toc()
+np.sin(a)+np.sin(b)
+cpu_time = toc()
+
+speedup = cpu_time/gpu_time
+print "speed up is " + str(speedup)
 
 
