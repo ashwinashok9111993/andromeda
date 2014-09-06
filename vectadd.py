@@ -25,8 +25,14 @@ __global__ void add_them(float *dest, float *a, float *b)
 
 multiply_them = mod.get_function("add_them")
 
+###############################################################################
+#
+# We shall perform the benchmarking about 26 times, each time doubling the
+# number of elements considered, from 2 to 2^26
+#
+###############################################################################
 
-speedup  = np.zeros(26)
+
 gpu_time = np.zeros(26)
 cpu_time = np.zeros(26)
 for i in xrange(0,26):
@@ -41,7 +47,7 @@ for i in xrange(0,26):
     tic()
     multiply_them(
         drv.Out(dest), drv.In(a), drv.In(b),
-        block=(128,1,1),grid=(128,1,1))
+        block=(1024,1,1),grid=(64,1,1))
 
     gpu_time[i] = toc()
 
@@ -63,7 +69,7 @@ p.ylabel("time in sec")
 p.xlabel("array size in log(N)/log(2)")
 p.legend()
 p.subplot(2, 1, 2)
-p.plot((np.arange(0, 26)+1), speedup)
+p.plot((np.arange(0, 26)+1), speedup, color = 'red')
 p.ylabel("speed up")
 p.xlabel("array size in log(N)/log(2)")
 p.show()

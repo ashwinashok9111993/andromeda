@@ -22,11 +22,17 @@ multiply_them = mod.get_function("multiply_them")
 a = numpy.random.randn(65536).astype(numpy.float32)
 b = numpy.random.randn(65536).astype(numpy.float32)
 
+print 'cpu ',
+tic()
+a*b
+print 'Estimated time = ',toc()
+
+print 'gpu',
+tic()
 dest = numpy.zeros_like(a)
 multiply_them(
         drv.Out(dest), drv.In(a), drv.In(b),
         block=(1024,1,1),grid=(64,1,1))
+print 'Estimated time = ',toc()
 
-tic()
-a*b
-toc()
+
