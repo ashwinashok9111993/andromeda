@@ -9,12 +9,19 @@ from tictoc import *
 import pycuda.gpuarray as gpuarray
 from pycuda.elementwise import ElementwiseKernel
 
-
+##########################################################################
+# In Monte-carlo method, we use a lot random number calculation and
+# element wise operations. Those are best suited for the GPU
+# therefore we take advantage of PyCuda's Numpy inspired GPUarray class
+# This example also illustrates curand and Elementwise kernels
+# this example is no way optimised!
+# This example exists only to show that numpy can be adapted(-ish) to GPU
+##########################################################################
 
 circle = ElementwiseKernel(
         " float *x,float *y,float *z",
         " z[i]=floor(x[i]*x[i]+y[i]*y[i]);",
-        "complex5",
+        " complex5",
         keep=True)
 tic()
 N = 80009999

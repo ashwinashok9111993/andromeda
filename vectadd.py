@@ -10,7 +10,8 @@ from tictoc import *
 import matplotlib.pyplot as p
 
 
-mod = SourceModule("""
+mod = SourceModule(
+"""
 __global__ void add_them(float *dest, float *a, float *b)
 
 #include<math.h>
