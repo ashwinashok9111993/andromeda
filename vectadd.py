@@ -9,6 +9,7 @@ from pycuda.compiler import SourceModule
 from tictoc import *
 import matplotlib.pyplot as p
 
+
 mod = SourceModule("""
 __global__ void add_them(float *dest, float *a, float *b)
 
@@ -52,11 +53,17 @@ for i in xrange(0,26):
 
 speedup = cpu_time/gpu_time
 
-print N,len(speedup)
-print "speed up is " + str(speedup)
+print 'maximum size of array ', N
+print 'number of iteration ', len(speedup)
 
-p.subplot(2,1,1)
-p.plot(np.arange(0,26)+1,cpu_time,np.arange(0,26)+1,gpu_time)
-p.subplot(2,1,2)
-p.plot(np.arange(0,26)+1,speedup)
+p.subplot(2, 1, 1)
+p.plot((np.arange(0, 26)+1), cpu_time, label='cpu')
+p.plot((np.arange(0, 26)+1), gpu_time,label='gpu')
+p.ylabel("time in sec")
+p.xlabel("array size in log(N)/log(2)")
+p.legend()
+p.subplot(2, 1, 2)
+p.plot((np.arange(0, 26)+1), speedup)
+p.ylabel("speed up")
+p.xlabel("array size in log(N)/log(2)")
 p.show()
