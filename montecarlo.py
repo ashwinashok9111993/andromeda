@@ -35,6 +35,9 @@ circle(x_gpu,y_gpu,z_gpu)
 print "gpu_pi   "  ,((N-gpuarray.sum(z_gpu))/N)*4
 print "time     " ,toc()
 
+##########################################################
+# CPU implementation of monte-carlo.(adapted from Wikipedia)
+##########################################################
 tic()
 x = np.random.rand(N)
 y = np.random.rand(N)
