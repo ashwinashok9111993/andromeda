@@ -17,7 +17,7 @@ circle = ElementwiseKernel(
         "complex5",
         keep=True)
 tic()
-N = 80000012
+N = 80009999
 print "Number of iterations considered",N
 x_gpu = rand([N], dtype=np.float32, stream=None)
 y_gpu = rand([N], dtype=np.float32, stream=None)
