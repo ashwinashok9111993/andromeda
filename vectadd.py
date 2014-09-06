@@ -10,20 +10,6 @@ from tictoc import *
 import matplotlib.pyplot as p
 
 
-mod = SourceModule("""
-__global__ void add_them(float *dest, float *a, float *b)
-
-#include<math.h>
-{
-  int i = threadIdx.x+(blockIdx.x*(blockDim.x));
-
-  dest[i] = (a[i]) + (b[i]);
-  i += blockDim.x * gridDim.x;
-
-}
-""")
-
-multiply_them = mod.get_function("add_them")
 
 ###############################################################################
 #
