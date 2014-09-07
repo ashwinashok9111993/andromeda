@@ -12,14 +12,14 @@ import matplotlib.pyplot as p
 
 mod = SourceModule(
 """
-__global__ void add_them(float *dest, float *a, float *b)
+__global__ void add_them(float N,float *dest, float *a, float *b)
 
-#include<math.h>
 {
   int i = threadIdx.x+(blockIdx.x*(blockDim.x));
-
+while(i<N){
   dest[i] = sin(a[i]) + sin(b[i]);
   i += blockDim.x * gridDim.x;
+  }
 
 }
 """)
@@ -47,7 +47,7 @@ for i in xrange(0,26):
    # print 'gpu'
     tic()
     add_them(
-        drv.Out(dest), drv.In(a), drv.In(b),
+        drv.In(np.float32(N)),drv.Out(dest), drv.In(a), drv.In(b),
         block=(1024,1,1),grid=(64,1,1))
 
     gpu_time[i] = toc()
