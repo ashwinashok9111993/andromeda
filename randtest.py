@@ -1,6 +1,5 @@
 __author__ = 'ashwin'
 
-
 import pycuda.driver as drv
 import pycuda.tools
 import pycuda.autoinit
@@ -10,15 +9,6 @@ import pycuda.gpuarray as gpuarray
 from pycuda.compiler import SourceModule
 import pycuda.curandom
 import pycuda.cumath
-
-##########################################################################
-# In Monte-carlo method,we take advantage of PyCuda's Numpy inspired
-# GPUarray class
-#
-# this example is no way optimised!
-# This example exists only to show that numpy can be adapted(-ish) to GPU
-##########################################################################
-
 
 print pycuda.curandom.get_curand_version()
 a =  pycuda.curandom.seed_getter_uniform(9)

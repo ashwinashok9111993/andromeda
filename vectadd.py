@@ -24,7 +24,7 @@ __global__ void add_them(float *dest, float *a, float *b)
 }
 """)
 
-multiply_them = mod.get_function("add_them")
+add_them = mod.get_function("add_them")
 
 ###############################################################################
 #
@@ -46,7 +46,7 @@ for i in xrange(0,26):
 
    # print 'gpu'
     tic()
-    multiply_them(
+    add_them(
         drv.Out(dest), drv.In(a), drv.In(b),
         block=(1024,1,1),grid=(64,1,1))
 
