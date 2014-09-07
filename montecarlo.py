@@ -9,7 +9,7 @@ __author__ = 'ashwin'
 ##########################################################################
 
 
-import pycuda.driver as drv.__pow__
+import pycuda.driver as drv
 import pycuda.tools
 import pycuda.autoinit
 import numpy as np
@@ -35,8 +35,8 @@ print "time         ",toc()
 
 
 tic()
-x = gpuarray.GPUArray.get(b.gen_uniform(N, dtype=np.float32 , stream=None))
-y = gpuarray.GPUArray.get(b.gen_uniform(N, dtype=np.float32 , stream=None))
+x = np.random.rand(N)
+y = np.random.rand(N)
 z =np.floor((x)**2+(y)**2)
 pi=((N-np.sum(z))/N)*4
 print "cpu_pi      ",pi
