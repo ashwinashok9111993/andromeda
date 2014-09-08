@@ -59,7 +59,7 @@ while(i<100*100*100){
      y = ((i%(WIDTH * HEIGHT))/WIDTH);
      x = i-(y*WIDTH) -(z*WIDTH*HEIGHT);
 
-     th = atan2f(z, sqrtf(x*x+y*y));
+
      if(sqrtf((x)*(x) + y*y + z*z) > 100)
      {data[i] = -10;}
      else
