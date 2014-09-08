@@ -5,7 +5,6 @@ Demonstrates GLVolumeItem for displaying volumetric data.
 
 """
 
-## Add path to library (just for examples; you do not need this)
 
 import pycuda.driver as drv
 import pycuda.tools
