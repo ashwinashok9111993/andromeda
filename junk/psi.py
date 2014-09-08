@@ -34,28 +34,58 @@ w.addItem(g)
 
 
 
-## Hydrogen electron probability density
-def psi(i, j, k, offset=(50,50,100)):
-    x = i-offset[0]
-    y = j-offset[1]
-    z = k-offset[2]
-    th = np.arctan2(z, (x**2+y**2)**0.5)
-    phi = np.arctan2(y, x)
-    r = (x**2 + y**2 + z **2)**0.5
-    a0 = 2
-    #ps = (1./81.) * (2./np.pi)**0.5 * (1./a0)**(3/2) * (6 - r/a0) * (r/a0) * np.exp(-r/(3*a0)) * np.cos(th)
-    ps = (1./81.) * 1./(6.*np.pi)**0.5 * (1./a0)**(3/2) * (r/a0)**2 * np.exp(-r/(3*a0)) * (3 * np.cos(th)**2 - 1)
+mod = SourceModule(
+"""
 
-    return ps
+#include<math.h>
+#define pi 3.14
 
-    #return ((1./81.) * (1./np.pi)**0.5 * (1./a0)**(3/2) * (r/a0)**2 * (r/a0) * np.exp(-r/(3*a0)) * np.sin(th) * np.cos(th) * np.exp(2 * 1j * phi))**2
+__global__ void add_them(float *data){
 
 
 
+  int i = threadIdx.x+(blockIdx.x*(blockDim.x));
+   float x,y,z=0;
+   int WIDTH = 100;
+   int HEIGHT = 100;
+   int th=0;
+   int r,a0 =2;
 
 
-'''
-data = np.fromfunction(psi, (100,100,200))
+while(i<100*100*100){
+
+
+     z = (i/(WIDTH*HEIGHT));
+     y = ((i%(WIDTH * HEIGHT))/WIDTH);
+     x = i-(y*WIDTH) -(z*WIDTH*HEIGHT);
+
+     th = atan2f(z, sqrtf(x*x+y*y));
+     if(sqrtf((x)*(x) + y*y + z*z) > 100)
+     {data[i] = -10;}
+     else
+     {data[i] = 10;}
+    //   data[i] = y;
+
+
+  i += blockDim.x * gridDim.x;}
+
+}
+""")
+
+
+add_them = mod.get_function("add_them")
+data = np.zeros(100*100*100,order = 'F').astype(np.float32)
+print data.shape
+add_them(
+        drv.InOut(data),
+        block=(1024,1,1),grid=(64,1,1))
+data=np.reshape(data,(100,100,100), order='F').astype(np.float32)
+
+
+
+#data = np.fromfunction(psi, (100,100,200))
+print data
+
 positive = np.log(np.clip(data, 0, data.max())**2)
 negative = np.log(np.clip(-data, 0, -data.min())**2)
 
@@ -71,12 +101,12 @@ d2[0, :, 0] = [0,255,0,100]
 d2[0, 0, :] = [0,0,255,100]
 
 v = gl.GLVolumeItem(d2)
-v.translate(-50,-50,-100)
+#v.translate(-50,-50,-100)
 w.addItem(v)
 
 ax = gl.GLAxisItem()
 w.addItem(ax)
-'''
+
 
 ## Start Qt event loop unless running in interactive mode.
 if __name__ == '__main__':
