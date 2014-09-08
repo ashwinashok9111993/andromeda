@@ -20,8 +20,8 @@ __global__ void julia(float *pix)
   int j = threadIdx.y+(blockIdx.y*(blockDim.y));
 
   float newRe, newIm, oldRe, oldIm;
-  float  cRe = 0.01;
-  float  cIm = 0.7;
+  float  cRe = -0.01;
+  float  cIm = -0.7;
   int maxIterations = 200;
   newRe =   0.5*(i)/2560;
   newIm =   0.5*(j)/2560;
