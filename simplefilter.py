@@ -16,12 +16,13 @@ int M=C[0];
 int N=C[1];
 a =  threadIdx.x + blockIdx.x * blockDim.x;
 b =  threadIdx.y + blockIdx.y * blockDim.y;
+int i,j;
 
-while(a<M){
+while(a<M && a>3){
 
-while(b<N){
+while(b<N  && b>3){
 
-dest[a*N+b] = (r_img[(a)*N+b])+(r_img[(a)*N+b]);
+
 
 b += blockDim.y*gridDim.y;
 }
