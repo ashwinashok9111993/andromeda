@@ -22,8 +22,6 @@ while(a<M && a>3){
 
 while(b<N  && b>3){
 
-
-
 b += blockDim.y*gridDim.y;
 }
 a += blockDim.x*gridDim.x;
