@@ -2,9 +2,9 @@ __author__ = 'ashwin'
 
 
 import numpy as np
-import pycuda.driver as drv
+import pycuda.driver as drv # Before you can use PyCuda, you have to import and initialize it
 import pycuda.tools
-import pycuda.autoinit
+import pycuda.autoinit #Note that you do not have to use pycuda.autoinit– initialization, context creation, and cleanup can also be performed manually, if desired.
 from pycuda.compiler import SourceModule
 from tictoc import *
 import matplotlib.pyplot as p
