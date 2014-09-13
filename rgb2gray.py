@@ -16,7 +16,6 @@ int M=C[0];
 int N=C[1];
 a =  threadIdx.x + blockIdx.x * blockDim.x;
 b =  threadIdx.y + blockIdx.y * blockDim.y;
-
 while(a<M){
 
 while(b<N){
