@@ -39,7 +39,6 @@ filter = mod.get_function("filter")
 filter(drv.In(np.float32([M,N])),drv.InOut(dest), drv.In(r_img),block=(1024, 1, 1), grid=(M*N/1024,1,1))
 
 dest=np.reshape(dest,(M,N), order='F')
-
 p.gray()
 p.subplot(1,2,1)
 p.imshow(a)
