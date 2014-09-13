@@ -30,7 +30,7 @@ a += blockDim.x*gridDim.x;
 }
 """)
 
-a = scm.imread('dice.png').astype(np.float32)updates
+a = scm.imread('dice.png').astype(np.float32)
 (M,N,L)=a.shape
 print M,N
 

@@ -19,7 +19,7 @@ from pycuda.compiler import SourceModule
 import pycuda.curandom
 import pycuda.cumath
 
-N = 1000
+N = 1000000
 
 print pycuda.curandom.get_curand_version()
 a =  pycuda.curandom.seed_getter_uniform(9)
