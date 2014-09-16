@@ -11,6 +11,10 @@ import pycuda.curandom
 import pycuda.cumath
 import matplotlib.pyplot as p
 
+#
+# NOT TO BE USED AS A BENCHMARK!
+#
+
 mod = SourceModule("""
 
 __global__ void julia(float *pix)
