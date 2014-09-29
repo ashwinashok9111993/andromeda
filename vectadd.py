@@ -4,7 +4,7 @@ __author__ = 'ashwin'
 import numpy as np
 import pycuda.driver as drv # Before you can use PyCuda, you have to import and initialize it
 import pycuda.tools
-import pycuda.autoinit #Note that you do not have to use pycuda.autoinit– initialization, context creation, and cleanup can also be performed manually, if desired.
+import pycuda.autoinit
 from pycuda.compiler import SourceModule
 from tictoc import *
 import matplotlib.pyplot as p
@@ -47,8 +47,7 @@ for i in xrange(0,26):
    # print 'gpu'
     tic()
     add_them(
-        drv.In(np.float32(N)),drv.Out(dest), drv.In(a), drv.In(b),
-        block=(1024,1,1),grid=(64,1,1))
+        drv.In(np.float32([N])),drv.Out(dest), drv.In(a), drv.In(b),block=(1024,1,1),grid=(64,1,1))
 
     gpu_time[i] = toc()
 

@@ -44,6 +44,7 @@ rgb2gray(drv.In(np.float32([M,N])),drv.Out(dest), drv.In(r_img), drv.In(g_img),d
 
 dest=np.reshape(dest,(M,N), order='F')
 
+p
 p.gray()
 p.imshow(dest)
 p.show()
