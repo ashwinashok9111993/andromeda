@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/andromeda.iml" filepath="$PROJECT_DIR$/.idea/andromeda.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../wavelets-workshop/.idea/wavelets-workshop.iml" filepath="$PROJECT_DIR$/../wavelets-workshop/.idea/wavelets-workshop.iml" />
     </modules>
   </component>
 </project>
